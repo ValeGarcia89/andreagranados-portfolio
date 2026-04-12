@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Andrea Granados | Unity Developer & 3D Artist</title>
-  <meta name="description" content="Portfolio de Andrea Granados: Desarrolladora Unity, Gameplay Programmer y artista 2D/3D. Experiencias interactivas donde arte y código convergen." />
+  <meta name="description" content="Portfolio de Andrea Granados: Desarrolladora Unity, Gameplay Programmer y artista 2D/3D." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@
       background-color: #05030A;
     }
 
-    /* Header / Navbar */
+    /* Header */
     .navbar {
       position: fixed;
       top: 0;
@@ -144,12 +144,6 @@
       transition: var(--transition-fast);
     }
 
-    .btn-cv-nav:hover {
-      background: rgba(236, 72, 153, 0.3);
-      border-color: #F97316;
-      transform: translateY(-2px);
-    }
-
     .lang-toggle {
       display: flex;
       gap: 8px;
@@ -173,10 +167,9 @@
     .lang-btn.active {
       background: linear-gradient(95deg, #A855F7, #EC4899);
       color: white;
-      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
     }
 
-    /* HERO - SPLINE FONDO COMPLETO */
+    /* HERO - SPLINE OPTIMIZADO PARA MEJOR FLUIDEZ */
     .hero {
       min-height: 100vh;
       position: relative;
@@ -193,13 +186,22 @@
       width: 100%;
       height: 100%;
       z-index: 0;
+      /* Mejora la fluidez del renderizado */
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .spline-full iframe {
       width: 100%;
       height: 100%;
       border: none;
+      /* Permite que el mouse interactúe directamente con la escena 3D */
       pointer-events: auto;
+      /* Optimizaciones de renderizado */
+      display: block;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     /* Contenido del hero - TODO A LA IZQUIERDA */
@@ -215,15 +217,18 @@
       align-items: flex-start;
       justify-content: center;
       gap: 1.5rem;
+      /* Asegura que el texto sea clickeable a través del iframe */
+      pointer-events: none;
     }
 
     .hero-left {
       animation: fadeUp 0.8s ease forwards;
       max-width: 700px;
       width: 100%;
+      /* Permite que el texto reciba eventos del mouse */
+      pointer-events: auto;
     }
 
-    /* Nombre en 4 líneas: ANDREA / VALENTINA / GRANADOS / GARCÍA */
     .typewriter-name {
       font-size: 3.8rem;
       font-weight: 900;
@@ -270,7 +275,7 @@
       text-align: left;
     }
 
-    /* Iconos sociales verticales */
+    /* Iconos sociales - también clickeables */
     .social-vertical {
       position: absolute;
       right: 2rem;
@@ -280,6 +285,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
+      pointer-events: auto;
     }
 
     .social-icon-wrapper {
@@ -305,7 +311,6 @@
     .social-icon-wrapper a:hover {
       transform: scale(1.15) translateX(-3px);
       background: linear-gradient(135deg, #A855F7, #EC4899);
-      border-color: #F97316;
     }
 
     .social-icon-wrapper img {
@@ -333,7 +338,7 @@
       transform: translateX(-5px);
     }
 
-    /* About Section */
+    /* About */
     .about-grid {
       display: flex;
       gap: 3rem;
@@ -359,14 +364,9 @@
       border: 3px solid transparent;
       background: linear-gradient(white, white) padding-box, var(--grad-border) border-box;
       transition: transform 0.3s;
-      object-fit: cover;
     }
 
-    .profile-photo:hover {
-      transform: scale(1.02);
-    }
-
-    /* Skills - dos columnas */
+    /* Skills */
     .skills-wrapper {
       display: flex;
       gap: 2.5rem;
@@ -420,14 +420,13 @@
     .skill-badge:hover {
       background: linear-gradient(145deg, #A855F7, #EC4899);
       color: white;
-      transform: translateY(-3px) scale(1.02);
-      border-color: #F97316;
+      transform: translateY(-3px);
     }
 
     /* Project Cards */
     .project-card {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       background: var(--grad-card);
       border-radius: 2rem;
       margin-bottom: 3rem;
@@ -456,6 +455,7 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s;
+      display: block;
     }
 
     .project-card:hover .project-img img {
@@ -569,8 +569,6 @@
       color: white;
       cursor: pointer;
       transition: var(--transition-bounce);
-      text-decoration: none;
-      display: inline-block;
       background-size: 200% auto;
     }
 
@@ -601,7 +599,6 @@
       margin-bottom: 2.5rem;
     }
 
-    /* Responsive */
     @media (max-width: 1024px) {
       .hero-grid { padding: 0 2rem; align-items: center; }
       .hero-left { text-align: center; }
@@ -618,8 +615,9 @@
       .hero-grid { padding: 0 1.5rem; }
       .social-vertical { display: none; }
       .typewriter-name { font-size: 2rem; }
-      .nav-links { gap: 1rem; }
-      .nav-links a { font-size: 0.8rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.75rem; }
+      .btn-cv-nav { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
       .hero-description-text { font-size: 0.85rem; }
     }
   </style>
@@ -649,27 +647,26 @@
 </nav>
 
 <main>
-  <!-- Hero Section con Spline - TODO EL CONTENIDO A LA IZQUIERDA -->
   <section id="home" class="hero">
+    <!-- Spline con optimizaciones para mejor fluidez -->
     <div class="spline-full">
-      <iframe src='https://my.spline.design/robotfollowcursorforlandingpage-AXPNVzBLOTU0Ywno3l3YSjRj/' 
-              frameborder='0' 
-              width='100%' 
-              height='100%'
-              loading='eager'
-              allow='autoplay; fullscreen'>
+      <iframe 
+        src='https://my.spline.design/robotfollowcursorforlandingpage-AXPNVzBLOTU0Ywno3l3YSjRj/?embed=true&autoplay=true&loop=true' 
+        frameborder='0' 
+        width='100%' 
+        height='100%'
+        loading='eager'
+        allow='autoplay; fullscreen'
+        title="Escena 3D interactiva Spline">
       </iframe>
     </div>
     
     <div class="hero-grid">
       <div class="hero-left">
-        <!-- Nombre en 4 líneas: ANDREA / VALENTINA / GRANADOS / GARCÍA -->
         <h1 class="typewriter-name" id="typewriter"></h1>
-        <!-- Subtítulo -->
         <div class="hero-subtitle">
           UNITY GAME DEVELOPER | 3D/2D ARTIST | UI DESIGNER
         </div>
-        <!-- Descripción -->
         <div class="hero-description">
           <div class="hero-description-text" id="heroDescription">
             Ingeniera Multimedia que desarrolla experiencias interactivas en Unity, combinando programación de gameplay en C# con creación de arte 2D/3D y diseño de UI para videojuegos.
@@ -686,7 +683,6 @@
     </div>
   </section>
 
-  <!-- About Section -->
   <section id="about" class="container reveal">
     <div class="section-header">
       <h2 class="gradient-title" style="font-size: 2.8rem; font-weight: 800;" data-key="aboutTitle">About Me</h2>
@@ -703,7 +699,6 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
   <section id="skills" class="container reveal">
     <div class="section-header">
       <h2 class="gradient-title" style="font-size: 2.8rem; font-weight: 800;" data-key="skillsTitle">Technical Toolkit</h2>
@@ -712,70 +707,51 @@
       <div class="skills-col">
         <h3 data-key="competenciesTitle">Core Competencies</h3>
         <div class="skills-grid">
-          <span class="skill-badge">Game Development</span>
-          <span class="skill-badge">Gameplay Programming</span>
-          <span class="skill-badge">Física y colisiones</span>
-          <span class="skill-badge">Sistemas interactivos</span>
-          <span class="skill-badge">Game Design</span>
-          <span class="skill-badge">Diseño de niveles</span>
-          <span class="skill-badge">Dirección de arte</span>
-          <span class="skill-badge">Modelado 3D</span>
-          <span class="skill-badge">Texturizado</span>
-          <span class="skill-badge">Animación</span>
-          <span class="skill-badge">Pixel art</span>
-          <span class="skill-badge">Ilustración digital</span>
-          <span class="skill-badge">Diseño de personajes</span>
-          <span class="skill-badge">UI / UX</span>
-          <span class="skill-badge">Diseño de interfaces</span>
-          <span class="skill-badge">Experiencia de usuario</span>
-          <span class="skill-badge">C# / Unity</span>
-          <span class="skill-badge">Diseño narrativo</span>
+          <span class="skill-badge">Game Development</span><span class="skill-badge">Gameplay Programming</span><span class="skill-badge">Física y colisiones</span>
+          <span class="skill-badge">Sistemas interactivos</span><span class="skill-badge">Game Design</span><span class="skill-badge">Diseño de niveles</span>
+          <span class="skill-badge">Dirección de arte</span><span class="skill-badge">Modelado 3D</span><span class="skill-badge">Texturizado</span>
+          <span class="skill-badge">Animación</span><span class="skill-badge">Pixel art</span><span class="skill-badge">Ilustración digital</span>
+          <span class="skill-badge">Diseño de personajes</span><span class="skill-badge">UI/UX</span><span class="skill-badge">Diseño de interfaces</span>
+          <span class="skill-badge">Experiencia de usuario</span><span class="skill-badge">C# / Unity</span><span class="skill-badge">Diseño narrativo</span>
         </div>
       </div>
       <div class="skills-col" id="software">
         <h3 data-key="softwareTitle">Software & Tools</h3>
         <div class="skills-grid">
-          <span class="skill-badge">🎮 Unity</span>
-          <span class="skill-badge">🎨 Blender</span>
-          <span class="skill-badge">🐙 Git</span>
-          <span class="skill-badge">🟣 Visual Studio</span>
-          <span class="skill-badge">🖌 Photoshop</span>
-          <span class="skill-badge">🧩 Illustrator</span>
-          <span class="skill-badge">📐 Figma</span>
-          <span class="skill-badge">🎞 After Effects</span>
+          <span class="skill-badge">🎮 Unity</span><span class="skill-badge">🎨 Blender</span><span class="skill-badge">🐙 Git</span>
+          <span class="skill-badge">🟣 Visual Studio</span><span class="skill-badge">🖌 Photoshop</span><span class="skill-badge">🧩 Illustrator</span>
+          <span class="skill-badge">📐 Figma</span><span class="skill-badge">🎞 After Effects</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section id="projects" class="container reveal">
     <div class="section-header">
-      <h2 class="gradient-title" style="font-size: 2.8rem; margin-bottom: 0.5rem;" data-key="projectsTitle">Interactive projects</h2>
+      <h2 class="gradient-title" style="font-size: 2.8rem;" data-key="projectsTitle">Interactive projects</h2>
       <p style="color: #B9C3E6;" data-key="projectsSub">Gameplay, arte y narrativa en cada experiencia</p>
     </div>
     
     <div class="projects-list">
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_baiquimu.png" alt="Baiquimu" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Baiquimu'"></div><div class="project-info"><h3 class="project-title">✨ Baiquimu</h3><p class="project-desc" data-key="proj1Desc">Estrategia en tiempo real donde una joven bruja debe defender un pueblo de amenazas fantasmales tomando decisiones tácticas bajo recursos limitados.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_happy_circus.png" alt="Happy Circus" onerror="this.src='https://placehold.co/600x400?text=Happy+Circus'"></div><div class="project-info"><h3 class="project-title">🎪 Happy Circus</h3><p class="project-desc" data-key="proj2Desc">Arcade de disparos rápido y colorido donde una niña usa burbujas para derribar payasos flotantes en un circo tan festivo como inquietante.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_hidden_legacy.png" alt="Hidden Legacy" onerror="this.src='https://placehold.co/600x400?text=Hidden+Legacy'"></div><div class="project-info"><h3 class="project-title">🥷 Hidden Legacy</h3><p class="project-desc" data-key="proj3Desc">Aventura de exploración en laberinto donde cada partida cambia, desafiando al jugador a sobrevivir trampas y encontrar un tesoro ancestral.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_rbg.png" alt="Risk Ball Glow" onerror="this.src='https://placehold.co/600x400?text=Risk+Ball'"></div><div class="project-info"><h3 class="project-title">🟡 Risk Ball Glow</h3><p class="project-desc" data-key="proj4Desc">Arcade de supervivencia minimalista donde una esfera luminosa debe esquivar enemigos y usar power-ups en una isla suspendida en el vacío.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_irisdecent.png" alt="Irisdecent" onerror="this.src='https://placehold.co/600x400?text=Irisdecent'"></div><div class="project-info"><h3 class="project-title">💎 Irisdecent</h3><p class="project-desc" data-key="proj5Desc">Cinemática 3D narrativa que sigue el viaje de una pequeña criatura para restaurar la luz de un mundo que comienza a apagarse.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
-      <div class="project-card"><div class="project-img"><img src="./assets/png/p_wild_flow.png" alt="Wild Flow" onerror="this.src='https://placehold.co/600x400?text=Wild+Flow'"></div><div class="project-info"><h3 class="project-title">🦦 Wild Flow</h3><p class="project-desc" data-key="proj6Desc">Plataformas 2D educativo donde una nutria recoge y clasifica residuos para restaurar el equilibrio del entorno natural.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_baiquimu.png" alt="Baiquimu" loading="lazy" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Baiquimu'"></div><div class="project-info"><h3 class="project-title">✨ Baiquimu</h3><p class="project-desc" data-key="proj1Desc">Estrategia en tiempo real donde una joven bruja debe defender un pueblo de amenazas fantasmales tomando decisiones tácticas bajo recursos limitados.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_happy_circus.png" alt="Happy Circus" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Happy+Circus'"></div><div class="project-info"><h3 class="project-title">🎪 Happy Circus</h3><p class="project-desc" data-key="proj2Desc">Arcade de disparos rápido y colorido donde una niña usa burbujas para derribar payasos flotantes en un circo tan festivo como inquietante.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_hidden_legacy.png" alt="Hidden Legacy" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Hidden+Legacy'"></div><div class="project-info"><h3 class="project-title">🥷 Hidden Legacy</h3><p class="project-desc" data-key="proj3Desc">Aventura de exploración en laberinto donde cada partida cambia, desafiando al jugador a sobrevivir trampas y encontrar un tesoro ancestral.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_rbg.png" alt="Risk Ball Glow" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Risk+Ball+Glow'"></div><div class="project-info"><h3 class="project-title">🟡 Risk Ball Glow</h3><p class="project-desc" data-key="proj4Desc">Arcade de supervivencia minimalista donde una esfera luminosa debe esquivar enemigos y usar power-ups en una isla suspendida en el vacío.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_irisdecent.png" alt="Irisdecent" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Irisdecent'"></div><div class="project-info"><h3 class="project-title">💎 Irisdecent</h3><p class="project-desc" data-key="proj5Desc">Cinemática 3D narrativa que sigue el viaje de una pequeña criatura para restaurar la luz de un mundo que comienza a apagarse.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
+      <div class="project-card"><div class="project-img"><img src="./assets/png/p_wild_flow.png" alt="Wild Flow" onerror="this.src='https://placehold.co/600x400/6c63ff/white?text=Wild+Flow'"></div><div class="project-info"><h3 class="project-title">🦦 Wild Flow</h3><p class="project-desc" data-key="proj6Desc">Plataformas 2D educativo donde una nutria recoge y clasifica residuos para restaurar el equilibrio del entorno natural.</p><div class="btn-group"><a href="#" class="btn-outline" data-key="caseStudyBtn">Case Study →</a><a href="https://andreagranados.itch.io/" target="_blank" class="btn-outline btn-itch">🎮 Itch.io</a></div></div></div>
     </div>
   </section>
 
-  <!-- Contact Section -->
   <section id="contact" class="container reveal">
     <div class="section-header">
-      <h2 class="gradient-title" style="font-size: 2.8rem; margin-bottom: 0.5rem;" data-key="contactTitle">Let's collaborate</h2>
+      <h2 class="gradient-title" style="font-size: 2.8rem;" data-key="contactTitle">Let's collaborate</h2>
       <p data-key="contactSub">¿Tienes un proyecto interactivo en mente? Hablemos sobre cómo integrar arte y código.</p>
     </div>
     <div class="contact-form">
-      <form action="#" id="contactForm">
+      <form id="contactForm">
         <div class="form-group"><label data-key="nameLabel">Nombre</label><input type="text" id="userName" placeholder="Tu nombre" required></div>
         <div class="form-group"><label data-key="emailLabel">Email</label><input type="email" id="userEmail" placeholder="tucorreo@ejemplo.com" required></div>
-        <div class="form-group"><label data-key="msgLabel">Mensaje</label><textarea id="userMessage" rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea></div>
+        <div class="form-group"><label data-key="msgLabel">Mensaje</label><textarea id="userMessage" rows="5" placeholder="Cuéntame sobre tu proyecto..." required></textarea></div>
         <button type="submit" class="btn-gradient" id="submitBtn" data-key="submitBtn">Enviar mensaje</button>
       </form>
       <div id="formStatus" style="margin-top: 1rem; text-align: center;"></div>
@@ -796,11 +772,9 @@
 </footer>
 
 <script>
-  // CV Link
   const CV_URL = "https://drive.google.com/file/d/1G5i7OP_s-NBtuGpkSjjtjqsphWx6OBXP/view?usp=drive_link";
   document.getElementById("cvButtonNav").href = CV_URL;
   
-  // Animación máquina de escribir - Nombre en 4 líneas
   const fullName = "ANDREA\nVALENTINA\nGRANADOS\nGARCÍA";
   const lines = fullName.split('\n');
   const typewriterElement = document.getElementById('typewriter');
@@ -836,7 +810,6 @@
   }
   typeEffect();
   
-  // Traducciones
   const translations = {
     es: {
       navHome: "Inicio", navAbout: "Sobre mí", navSkills: "Habilidades", navSoftware: "Software", navProjects: "Proyectos", navContact: "Contacto", navCv: "📄 CV",
@@ -895,12 +868,10 @@
   document.getElementById("btnEN").addEventListener("click", () => { currentLang = "en"; updateLanguage("en"); });
   updateLanguage("es");
   
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
   
-  // Contact form
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
   contactForm.addEventListener('submit', function(e) {
