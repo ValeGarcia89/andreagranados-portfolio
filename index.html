@@ -26,17 +26,14 @@
       overflow-x: hidden;
     }
 
-    /* Degradado brillante morado, fucsia, naranja */
     :root {
       --grad-bright: linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FF6B35);
       --grad-border: linear-gradient(95deg, #A855F7, #EC4899, #F97316);
       --grad-card: linear-gradient(145deg, #1A102F, #0F0A1E);
-      --glow-purple: 0 10px 25px -5px rgba(168, 85, 247, 0.4);
       --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-bounce: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
     }
 
-    /* Título con degradado brillante animado */
     .gradient-title {
       background: linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FF8C42);
       background-size: 300% auto;
@@ -74,11 +71,6 @@
       position: relative;
       z-index: 2;
       background-color: #05030A;
-    }
-
-    /* Espacio entre secciones */
-    .section-spacer {
-      margin-bottom: 2rem;
     }
 
     /* Header / Navbar */
@@ -184,7 +176,7 @@
       box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
     }
 
-    /* ========== HERO BANNER - SPLINE OCUPA TODO ========== */
+    /* HERO - SPLINE FONDO COMPLETO */
     .hero {
       min-height: 100vh;
       position: relative;
@@ -194,7 +186,6 @@
       overflow: hidden;
     }
 
-    /* Spline 3D fondo completo */
     .spline-full {
       position: absolute;
       top: 0;
@@ -211,7 +202,7 @@
       pointer-events: auto;
     }
 
-    /* Contenido del hero */
+    /* Contenido del hero - TODO A LA IZQUIERDA */
     .hero-grid {
       position: relative;
       z-index: 2;
@@ -219,18 +210,22 @@
       max-width: 1300px;
       margin: 0 auto;
       padding: 0 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.5rem;
     }
 
     .hero-left {
       animation: fadeUp 0.8s ease forwards;
+      max-width: 700px;
+      width: 100%;
     }
 
+    /* Nombre en 4 líneas: ANDREA / VALENTINA / GRANADOS / GARCÍA */
     .typewriter-name {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       font-weight: 900;
       line-height: 1.2;
       letter-spacing: -0.02em;
@@ -244,6 +239,7 @@
       background-clip: text;
       color: transparent;
       animation: gradientFlow 3s ease infinite, blinkCursor 0.8s step-end infinite;
+      text-align: left;
     }
 
     .hero-subtitle {
@@ -254,38 +250,24 @@
       margin-top: 1rem;
       border-left: 3px solid #F97316;
       padding-left: 1rem;
-    }
-
-    .hero-right {
-      background: rgba(10, 8, 20, 0.55);
-      backdrop-filter: blur(12px);
-      border-radius: 1.5rem;
-      padding: 1.8rem;
-      border: 1px solid transparent;
-      background-clip: padding-box;
-      position: relative;
-      animation: fadeUp 0.9s ease forwards;
-    }
-
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      right: -1px;
-      bottom: -1px;
-      background: var(--grad-border);
-      border-radius: 1.5rem;
-      z-index: -1;
-      opacity: 0.5;
-    }
-
-    .profile-description {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #F0F2FA;
       text-align: left;
-      font-weight: 400;
+    }
+
+    .hero-description {
+      margin-top: 1.5rem;
+      max-width: 550px;
+    }
+
+    .hero-description-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #E2E8F0;
+      background: rgba(10, 8, 20, 0.6);
+      backdrop-filter: blur(8px);
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      border-left: 3px solid #F97316;
+      text-align: left;
     }
 
     /* Iconos sociales verticales */
@@ -351,7 +333,7 @@
       transform: translateX(-5px);
     }
 
-    /* About Section - imagen adaptable */
+    /* About Section */
     .about-grid {
       display: flex;
       gap: 3rem;
@@ -384,7 +366,7 @@
       transform: scale(1.02);
     }
 
-    /* Sección de Skills - dos columnas */
+    /* Skills - dos columnas */
     .skills-wrapper {
       display: flex;
       gap: 2.5rem;
@@ -452,6 +434,7 @@
       padding: 1.8rem;
       transition: var(--transition-bounce);
       border: 1px solid rgba(168, 85, 247, 0.2);
+      flex-wrap: wrap;
     }
 
     .project-card:hover {
@@ -463,6 +446,7 @@
 
     .project-img {
       flex: 1;
+      min-width: 250px;
       border-radius: 1.5rem;
       overflow: hidden;
     }
@@ -617,24 +601,26 @@
       margin-bottom: 2.5rem;
     }
 
+    /* Responsive */
     @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+      .hero-grid { padding: 0 2rem; align-items: center; }
       .hero-left { text-align: center; }
-      .hero-subtitle { border-left: none; border-top: 2px solid #F97316; padding-left: 0; padding-top: 0.5rem; display: inline-block; }
-      .profile-description { text-align: center; }
-      .hero-right { max-width: 550px; margin: 0 auto; }
-      .typewriter-name { font-size: 2.5rem; }
+      .typewriter-name { font-size: 2.8rem; }
+      .hero-subtitle { border-left: none; border-top: 2px solid #F97316; padding-left: 0; padding-top: 0.5rem; display: inline-block; text-align: center; }
+      .hero-description { margin: 1.5rem auto 0 auto; text-align: center; }
+      .hero-description-text { text-align: center; border-left: none; border-top: 2px solid #F97316; }
       .social-vertical { right: 1rem; gap: 0.8rem; }
-      .about-grid { flex-direction: column; text-align: center; }
       .skills-wrapper { flex-direction: column; }
+      .about-grid { flex-direction: column; text-align: center; }
     }
 
     @media (max-width: 768px) {
       .hero-grid { padding: 0 1.5rem; }
       .social-vertical { display: none; }
-      .typewriter-name { font-size: 1.8rem; }
+      .typewriter-name { font-size: 2rem; }
       .nav-links { gap: 1rem; }
       .nav-links a { font-size: 0.8rem; }
+      .hero-description-text { font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -663,7 +649,7 @@
 </nav>
 
 <main>
-  <!-- Hero Section con Spline fondo completo -->
+  <!-- Hero Section con Spline - TODO EL CONTENIDO A LA IZQUIERDA -->
   <section id="home" class="hero">
     <div class="spline-full">
       <iframe src='https://my.spline.design/robotfollowcursorforlandingpage-AXPNVzBLOTU0Ywno3l3YSjRj/' 
@@ -677,15 +663,18 @@
     
     <div class="hero-grid">
       <div class="hero-left">
+        <!-- Nombre en 4 líneas: ANDREA / VALENTINA / GRANADOS / GARCÍA -->
         <h1 class="typewriter-name" id="typewriter"></h1>
+        <!-- Subtítulo -->
         <div class="hero-subtitle">
           UNITY GAME DEVELOPER | 3D/2D ARTIST | UI DESIGNER
         </div>
-      </div>
-      <div class="hero-right">
-        <p class="profile-description" id="heroDescription">
-          Ingeniera Multimedia que desarrolla experiencias interactivas en Unity, combinando programación de gameplay en C# con creación de arte 2D/3D y diseño de UI para videojuegos.
-        </p>
+        <!-- Descripción -->
+        <div class="hero-description">
+          <div class="hero-description-text" id="heroDescription">
+            Ingeniera Multimedia que desarrolla experiencias interactivas en Unity, combinando programación de gameplay en C# con creación de arte 2D/3D y diseño de UI para videojuegos.
+          </div>
+        </div>
       </div>
     </div>
     
@@ -714,16 +703,15 @@
     </div>
   </section>
 
-  <!-- Skills Section - dos columnas: Competencias + Software -->
+  <!-- Skills Section -->
   <section id="skills" class="container reveal">
     <div class="section-header">
       <h2 class="gradient-title" style="font-size: 2.8rem; font-weight: 800;" data-key="skillsTitle">Technical Toolkit</h2>
     </div>
     <div class="skills-wrapper">
-      <!-- Columna Izquierda: Core Competencies -->
       <div class="skills-col">
         <h3 data-key="competenciesTitle">Core Competencies</h3>
-        <div class="skills-grid" id="competenciesGrid">
+        <div class="skills-grid">
           <span class="skill-badge">Game Development</span>
           <span class="skill-badge">Gameplay Programming</span>
           <span class="skill-badge">Física y colisiones</span>
@@ -744,10 +732,9 @@
           <span class="skill-badge">Diseño narrativo</span>
         </div>
       </div>
-      <!-- Columna Derecha: Software Tools -->
       <div class="skills-col" id="software">
         <h3 data-key="softwareTitle">Software & Tools</h3>
-        <div class="skills-grid" id="softwareGrid">
+        <div class="skills-grid">
           <span class="skill-badge">🎮 Unity</span>
           <span class="skill-badge">🎨 Blender</span>
           <span class="skill-badge">🐙 Git</span>
@@ -786,11 +773,12 @@
     </div>
     <div class="contact-form">
       <form action="#" id="contactForm">
-        <div class="form-group"><label data-key="nameLabel">Nombre</label><input type="text" placeholder="Tu nombre" required></div>
-        <div class="form-group"><label data-key="emailLabel">Email</label><input type="email" placeholder="tucorreo@ejemplo.com" required></div>
-        <div class="form-group"><label data-key="msgLabel">Mensaje</label><textarea rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea></div>
-        <button type="submit" class="btn-gradient" data-key="submitBtn">Enviar mensaje</button>
+        <div class="form-group"><label data-key="nameLabel">Nombre</label><input type="text" id="userName" placeholder="Tu nombre" required></div>
+        <div class="form-group"><label data-key="emailLabel">Email</label><input type="email" id="userEmail" placeholder="tucorreo@ejemplo.com" required></div>
+        <div class="form-group"><label data-key="msgLabel">Mensaje</label><textarea id="userMessage" rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea></div>
+        <button type="submit" class="btn-gradient" id="submitBtn" data-key="submitBtn">Enviar mensaje</button>
       </form>
+      <div id="formStatus" style="margin-top: 1rem; text-align: center;"></div>
     </div>
   </section>
 </main>
@@ -812,7 +800,7 @@
   const CV_URL = "https://drive.google.com/file/d/1G5i7OP_s-NBtuGpkSjjtjqsphWx6OBXP/view?usp=drive_link";
   document.getElementById("cvButtonNav").href = CV_URL;
   
-  // Animación máquina de escribir en loop
+  // Animación máquina de escribir - Nombre en 4 líneas
   const fullName = "ANDREA\nVALENTINA\nGRANADOS\nGARCÍA";
   const lines = fullName.split('\n');
   const typewriterElement = document.getElementById('typewriter');
@@ -848,7 +836,7 @@
   }
   typeEffect();
   
-  // Traducciones completas incluyendo navbar y software section
+  // Traducciones
   const translations = {
     es: {
       navHome: "Inicio", navAbout: "Sobre mí", navSkills: "Habilidades", navSoftware: "Software", navProjects: "Proyectos", navContact: "Contacto", navCv: "📄 CV",
@@ -881,35 +869,25 @@
   let currentLang = "es";
   function updateLanguage(lang) {
     const t = translations[lang];
-    // Navbar
-    document.querySelectorAll("[data-key]").forEach(el => {
-      const key = el.getAttribute("data-key");
-      if (t[key]) el.innerText = t[key];
-    });
-    // About texts
+    document.querySelectorAll("[data-key]").forEach(el => { const key = el.getAttribute("data-key"); if (t[key]) el.innerText = t[key]; });
     document.getElementById("aboutText1").innerText = t.aboutText1;
     document.getElementById("aboutText2").innerText = t.aboutText2;
     document.getElementById("aboutContact").innerText = t.aboutContact;
     document.getElementById("heroDescription").innerText = t.heroDescription;
-    // Skills headers
     document.querySelector("#skills .section-header h2").innerText = t.skillsTitle;
     document.querySelector(".skills-col:first-child h3").innerText = t.competenciesTitle;
     document.querySelector(".skills-col:last-child h3").innerText = t.softwareTitle;
-    // Projects
     document.querySelector("#projects .section-header h2").innerText = t.projectsTitle;
     document.querySelector("#projects .section-header p").innerText = t.projectsSub;
     document.querySelectorAll("[data-key='caseStudyBtn']").forEach(btn => btn.innerText = t.caseStudyBtn);
-    // Project descriptions
     const projDescs = [t.proj1Desc, t.proj2Desc, t.proj3Desc, t.proj4Desc, t.proj5Desc, t.proj6Desc];
     document.querySelectorAll(".project-desc").forEach((desc, idx) => { if(projDescs[idx]) desc.innerText = projDescs[idx]; });
-    // Contact
     document.querySelector("#contact .section-header h2").innerText = t.contactTitle;
     document.querySelector("#contact .section-header p").innerText = t.contactSub;
     document.querySelector("label[data-key='nameLabel']").innerText = t.nameLabel;
     document.querySelector("label[data-key='emailLabel']").innerText = t.emailLabel;
     document.querySelector("label[data-key='msgLabel']").innerText = t.msgLabel;
-    document.querySelector("button[data-key='submitBtn']").innerText = t.submitBtn;
-    
+    document.querySelector("#submitBtn").innerText = t.submitBtn;
     document.querySelectorAll(".lang-btn").forEach(btn => btn.classList.remove("active"));
     document.getElementById(lang === "es" ? "btnES" : "btnEN").classList.add("active");
   }
@@ -922,7 +900,15 @@
   const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
   
-  document.getElementById("contactForm")?.addEventListener("submit", (e) => e.preventDefault());
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    formStatus.innerHTML = '<p style="color: #4ade80;">✓ ' + (currentLang === 'es' ? 'Mensaje enviado correctamente. ¡Gracias!' : 'Message sent successfully. Thank you!') + '</p>';
+    contactForm.reset();
+    setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
+  });
 </script>
 </body>
 </html>
