@@ -268,73 +268,7 @@ function updateLanguage(lang) {
 }
 
 // ========================
-// 6. EMAILJS - FORMULARIO DE CONTACTO (CORREGIDO)
-// ========================
-function initEmailJS() {
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('formStatus');
-  
-  if (!contactForm) {
-    console.error("No se encontró el formulario con id 'contact-form'");
-    return;
-  }
-  
-  if (typeof emailjs === 'undefined') {
-    console.error("EmailJS no está cargado. Verifica la conexión a Internet y el script de EmailJS.");
-    formStatus.innerHTML = '<p style="color: #ff6b6b;">❌ Error: EmailJS no está disponible. Verifica tu conexión.</p>';
-    return;
-  }
-  
-  console.log("EmailJS disponible, inicializando...");
-  
-  contactForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    // Mostrar mensaje de carga
-    formStatus.innerHTML = '<p style="color: #F97316;">📧 Enviando mensaje...</p>';
-    
-    // Obtener los valores del formulario para depuración
-    const formData = new FormData(contactForm);
-    console.log("Datos del formulario:");
-    console.log("  from_name:", formData.get('from_name'));
-    console.log("  from_email:", formData.get('from_email'));
-    console.log("  message:", formData.get('message'));
-    
-    // Enviar el formulario con EmailJS
-    emailjs.sendForm(
-      "service_5cddsgm",   // Tu Service ID
-      "template_zkacu8g",  // Tu Template ID
-      contactForm          // El formulario
-    )
-    .then((response) => {
-      console.log("EmailJS éxito:", response);
-      const successMsg = currentLang === 'es' 
-        ? '✓ Mensaje enviado correctamente. ¡Gracias!' 
-        : '✓ Message sent successfully. Thank you!';
-      formStatus.innerHTML = `<p style="color: #4ade80;">${successMsg}</p>`;
-      contactForm.reset();
-      setTimeout(() => { 
-        formStatus.innerHTML = ''; 
-      }, 5000);
-    })
-    .catch((error) => {
-      console.error("Error detallado de EmailJS:", error);
-      let errorMsg = '';
-      if (currentLang === 'es') {
-        errorMsg = '✗ Error al enviar el mensaje. Detalles: ' + (error.text || error.message || 'Revisa la consola');
-      } else {
-        errorMsg = '✗ Error sending message. Details: ' + (error.text || error.message || 'Check the console');
-      }
-      formStatus.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
-      setTimeout(() => { 
-        formStatus.innerHTML = ''; 
-      }, 8000);
-    });
-  });
-}
-
-// ========================
-// 7. OBSERVADOR DE SCROLL
+// 6. OBSERVADOR DE SCROLL
 // ========================
 function initRevealObserver() {
   const reveals = document.querySelectorAll('.reveal');
@@ -368,21 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Inicializar observador de scroll
   initRevealObserver();
-  
-  // Inicializar EmailJS con tu Public Key
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init("JmNK5TOFS7t8dtPN-");
-    console.log("EmailJS inicializado con Public Key");
-    initEmailJS();
-  } else {
-    console.error("EmailJS no está disponible. Verifica que el script se cargó correctamente.");
-    const formStatus = document.getElementById('formStatus');
-    if (formStatus) {
-      formStatus.innerHTML = '<p style="color: #ff6b6b;">⚠️ Error: El servicio de correo no está disponible. Por favor, contacta directamente por LinkedIn.</p>';
-    }
-  }
-  
-  // Inicializar menú hamburguesa
+  initContactForm();
   initHamburgerMenu();
   
   // Configurar eventos de idioma
