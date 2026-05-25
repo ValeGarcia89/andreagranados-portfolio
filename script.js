@@ -96,7 +96,7 @@ function typeEffect() {
 }
 
 // ========================
-// 4. HABILIDADES (VERSIÓN SIMPLIFICADA Y FUNCIONAL)
+// 4. HABILIDADES
 // ========================
 const skillsData = {
   es: [
@@ -268,7 +268,53 @@ function updateLanguage(lang) {
 }
 
 // ========================
-// 6. OBSERVADOR DE SCROLL
+// 6. EMAILJS - FORMULARIO DE CONTACTO
+// ========================
+function initEmailJS() {
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('formStatus');
+  
+  if (contactForm && typeof emailjs !== 'undefined') {
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Mostrar mensaje de carga
+      formStatus.innerHTML = '<p style="color: #F97316;">📧 Enviando mensaje...</p>';
+      
+      // Enviar el formulario con EmailJS
+      emailjs.sendForm(
+        "service_5cddsgm",  // Tu Service ID
+        "template_zkacu8g",  // Tu Template ID
+        this                // El formulario
+      )
+      .then(() => {
+        // Éxito
+        const successMsg = currentLang === 'es' 
+          ? '✓ Mensaje enviado correctamente. ¡Gracias!' 
+          : '✓ Message sent successfully. Thank you!';
+        formStatus.innerHTML = `<p style="color: #4ade80;">${successMsg}</p>`;
+        contactForm.reset(); // Limpiar el formulario
+        setTimeout(() => { 
+          formStatus.innerHTML = ''; 
+        }, 5000);
+      })
+      .catch((error) => {
+        // Error
+        console.error("Error de EmailJS:", error);
+        const errorMsg = currentLang === 'es' 
+          ? '✗ Error al enviar el mensaje. Por favor, intenta de nuevo.' 
+          : '✗ Error sending message. Please try again.';
+        formStatus.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
+        setTimeout(() => { 
+          formStatus.innerHTML = ''; 
+        }, 5000);
+      });
+    });
+  }
+}
+
+// ========================
+// 7. OBSERVADOR DE SCROLL
 // ========================
 function initRevealObserver() {
   const reveals = document.querySelectorAll('.reveal');
@@ -281,44 +327,40 @@ function initRevealObserver() {
 }
 
 // ========================
-// 7. FORMULARIO DE CONTACTO
-// ========================
-function initContactForm() {
-  const contactForm = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-  
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      if (formStatus) {
-        formStatus.innerHTML = '<p style="color: #4ade80;">✓ ' + (currentLang === 'es' ? 'Mensaje enviado correctamente. ¡Gracias!' : 'Message sent successfully. Thank you!') + '</p>';
-      }
-      contactForm.reset();
-      setTimeout(() => { 
-        if (formStatus) formStatus.innerHTML = ''; 
-      }, 5000);
-    });
-  }
-}
-
-// ========================
 // 8. INICIALIZACIÓN
 // ========================
 document.addEventListener('DOMContentLoaded', function() {
+  // Configurar botones CV
   const cvButtonNav = document.getElementById("cvButtonNav");
   const cvButtonMobile = document.getElementById("cvButtonMobile");
   if (cvButtonNav) cvButtonNav.href = CV_URL;
   if (cvButtonMobile) cvButtonMobile.href = CV_URL;
   
+  // Inicializar máquina de escribir
   typewriterElement = document.getElementById('typewriter');
   if (typewriterElement) typeEffect();
   
+  // Inicializar habilidades
   buildSkills('es');
+  
+  // Inicializar idioma
   updateLanguage('es');
+  
+  // Inicializar observador de scroll
   initRevealObserver();
-  initContactForm();
+  
+  // Inicializar EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("JmNK5TOFS7t8dtPN-"); // Tu Public Key
+    initEmailJS();
+  } else {
+    console.warn("EmailJS no cargado correctamente");
+  }
+  
+  // Inicializar menú hamburguesa
   initHamburgerMenu();
   
+  // Configurar eventos de idioma
   const btnES = document.getElementById("btnES");
   const btnEN = document.getElementById("btnEN");
   if (btnES) btnES.addEventListener("click", () => { updateLanguage("es"); });
