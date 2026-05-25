@@ -274,48 +274,33 @@ function initEmailJS() {
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('formStatus');
   
-  if (!contactForm) {
-    console.error("No se encontró el formulario con id 'contact-form'");
-    return;
-  }
+  if (!contactForm) return;
+  if (typeof emailjs === 'undefined') return;
   
-  if (typeof emailjs === 'undefined') {
-    console.error("EmailJS no está cargado");
-    formStatus.innerHTML = '<p style="color: #ff6b6b;">❌ Error: EmailJS no está disponible.</p>';
-    return;
-  }
+  emailjs.init("JmNK5TOFS7t8dtPN-");
   
   contactForm.addEventListener('submit', function(event) {
     event.preventDefault();
     
-    formStatus.innerHTML = '<p style="color: #F97316;">📧 Enviando mensaje...</p>';
+    if (formStatus) formStatus.innerHTML = '<p style="color: #F97316;">📧 Enviando mensaje...</p>';
     
-    emailjs.sendForm(
-      "service_5cddsgm",
-      "template_zkacu8g",
-      contactForm
-    )
-    .then((response) => {
-      console.log("EmailJS éxito:", response);
-      const successMsg = currentLang === 'es' 
-        ? '✓ Mensaje enviado correctamente. ¡Gracias!' 
-        : '✓ Message sent successfully. Thank you!';
-      formStatus.innerHTML = `<p style="color: #4ade80;">${successMsg}</p>`;
-      contactForm.reset();
-      setTimeout(() => { 
-        formStatus.innerHTML = ''; 
-      }, 5000);
-    })
-    .catch((error) => {
-      console.error("Error de EmailJS:", error);
-      const errorMsg = currentLang === 'es' 
-        ? '✗ Error al enviar el mensaje. Intenta de nuevo.' 
-        : '✗ Error sending message. Please try again.';
-      formStatus.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
-      setTimeout(() => { 
-        formStatus.innerHTML = ''; 
-      }, 5000);
-    });
+    emailjs.sendForm("service_5cddsgm", "template_zkacu8g", contactForm)
+      .then(() => {
+        const successMsg = currentLang === 'es' 
+          ? '✓ Mensaje enviado correctamente. ¡Gracias!' 
+          : '✓ Message sent successfully. Thank you!';
+        if (formStatus) formStatus.innerHTML = `<p style="color: #4ade80;">${successMsg}</p>`;
+        contactForm.reset();
+        setTimeout(() => { if (formStatus) formStatus.innerHTML = ''; }, 5000);
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        const errorMsg = currentLang === 'es' 
+          ? '✗ Error al enviar el mensaje. Intenta de nuevo.' 
+          : '✗ Error sending message. Please try again.';
+        if (formStatus) formStatus.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
+        setTimeout(() => { if (formStatus) formStatus.innerHTML = ''; }, 5000);
+      });
   });
 }
 
@@ -336,37 +321,20 @@ function initRevealObserver() {
 // 8. INICIALIZACIÓN
 // ========================
 document.addEventListener('DOMContentLoaded', function() {
-  // Configurar botones CV
   const cvButtonNav = document.getElementById("cvButtonNav");
   const cvButtonMobile = document.getElementById("cvButtonMobile");
   if (cvButtonNav) cvButtonNav.href = CV_URL;
   if (cvButtonMobile) cvButtonMobile.href = CV_URL;
   
-  // Inicializar máquina de escribir
   typewriterElement = document.getElementById('typewriter');
   if (typewriterElement) typeEffect();
   
-  // Inicializar habilidades
   buildSkills('es');
-  
-  // Inicializar idioma
   updateLanguage('es');
-  
-  // Inicializar observador de scroll
   initRevealObserver();
-  
-  // Inicializar EmailJS
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init("JmNK5TOFS7t8dtPN-");
-    initEmailJS();
-  } else {
-    console.error("EmailJS no está disponible");
-  }
-  
-  // Inicializar menú hamburguesa
+  initEmailJS();
   initHamburgerMenu();
   
-  // Configurar eventos de idioma
   const btnES = document.getElementById("btnES");
   const btnEN = document.getElementById("btnEN");
   if (btnES) btnES.addEventListener("click", () => { updateLanguage("es"); });
