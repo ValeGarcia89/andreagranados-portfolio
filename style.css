@@ -175,6 +175,10 @@ section {
   padding: 0.5rem;
 }
 
+.mobile-menu a:hover {
+  color: #F97316;
+}
+
 .mobile-menu .btn-cv-nav {
   background: rgba(168, 85, 247, 0.15);
   padding: 0.5rem 1.2rem;
@@ -407,7 +411,7 @@ section {
   transform: translateX(-5px);
 }
 
-/* ========== SKILLS SECTION (SIMPLIFICADA Y FUNCIONAL) ========== */
+/* ========== SKILLS SECTION ========== */
 .constellation-section {
   background: radial-gradient(ellipse at 50% 30%, #0A0618 0%, #05030A 100%);
   position: relative;
@@ -605,6 +609,13 @@ section {
   margin-bottom: 1.5rem;
 }
 
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
 input, textarea {
   width: 100%;
   padding: 1rem;
@@ -613,11 +624,13 @@ input, textarea {
   border-radius: 1rem;
   color: white;
   font-family: inherit;
+  transition: var(--transition-fast);
 }
 
 input:focus, textarea:focus {
   outline: none;
   border-color: #EC4899;
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
 }
 
 .btn-gradient {
@@ -629,10 +642,12 @@ input:focus, textarea:focus {
   color: white;
   cursor: pointer;
   transition: var(--transition-bounce);
+  background-size: 200% auto;
 }
 
 .btn-gradient:hover {
   transform: translateY(-3px);
+  background-position: right center;
 }
 
 footer {
