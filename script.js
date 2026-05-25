@@ -268,7 +268,59 @@ function updateLanguage(lang) {
 }
 
 // ========================
-// 6. OBSERVADOR DE SCROLL
+// 6. EMAILJS - FORMULARIO DE CONTACTO
+// ========================
+function initEmailJS() {
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('formStatus');
+  
+  if (!contactForm) {
+    console.error("No se encontró el formulario con id 'contact-form'");
+    return;
+  }
+  
+  if (typeof emailjs === 'undefined') {
+    console.error("EmailJS no está cargado");
+    formStatus.innerHTML = '<p style="color: #ff6b6b;">❌ Error: EmailJS no está disponible.</p>';
+    return;
+  }
+  
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    formStatus.innerHTML = '<p style="color: #F97316;">📧 Enviando mensaje...</p>';
+    
+    emailjs.sendForm(
+      "service_5cddsgm",
+      "template_zkacu8g",
+      contactForm
+    )
+    .then((response) => {
+      console.log("EmailJS éxito:", response);
+      const successMsg = currentLang === 'es' 
+        ? '✓ Mensaje enviado correctamente. ¡Gracias!' 
+        : '✓ Message sent successfully. Thank you!';
+      formStatus.innerHTML = `<p style="color: #4ade80;">${successMsg}</p>`;
+      contactForm.reset();
+      setTimeout(() => { 
+        formStatus.innerHTML = ''; 
+      }, 5000);
+    })
+    .catch((error) => {
+      console.error("Error de EmailJS:", error);
+      const errorMsg = currentLang === 'es' 
+        ? '✗ Error al enviar el mensaje. Intenta de nuevo.' 
+        : '✗ Error sending message. Please try again.';
+      formStatus.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
+      setTimeout(() => { 
+        formStatus.innerHTML = ''; 
+      }, 5000);
+    });
+  });
+}
+
+// ========================
+// 7. OBSERVADOR DE SCROLL
 // ========================
 function initRevealObserver() {
   const reveals = document.querySelectorAll('.reveal');
@@ -302,7 +354,16 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Inicializar observador de scroll
   initRevealObserver();
-  initContactForm();
+  
+  // Inicializar EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("JmNK5TOFS7t8dtPN-");
+    initEmailJS();
+  } else {
+    console.error("EmailJS no está disponible");
+  }
+  
+  // Inicializar menú hamburguesa
   initHamburgerMenu();
   
   // Configurar eventos de idioma
