@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   
-  <!-- Enlace al CSS externo -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,7 +20,14 @@
       <img src="./assets/png/photo.png" alt="Andrea" class="logo-img" onerror="this.src='https://placehold.co/200x200?text=AG'">
       <span class="logo-text">Andrea Granados</span>
     </div>
-    <div class="nav-links">
+    
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <div class="nav-links desktop-menu">
       <a href="#home" data-key="navHome">Home</a>
       <a href="#about" data-key="navAbout">About</a>
       <a href="#constellations" data-key="navSkills">Skills</a>
@@ -32,6 +38,19 @@
         <button class="lang-btn active" id="btnES">ES</button>
         <button class="lang-btn" id="btnEN">EN</button>
       </div>
+    </div>
+  </div>
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" data-key="navHome">Home</a>
+    <a href="#about" data-key="navAbout">About</a>
+    <a href="#constellations" data-key="navSkills">Skills</a>
+    <a href="#projects" data-key="navProjects">Projects</a>
+    <a href="#contact" data-key="navContact">Contact</a>
+    <a id="cvButtonMobile" href="#" target="_blank" class="btn-cv-nav" data-key="navCv">📄 CV</a>
+    <div class="lang-toggle-mobile">
+      <button class="lang-btn-mobile active" id="btnESMobile">ES</button>
+      <button class="lang-btn-mobile" id="btnENMobile">EN</button>
     </div>
   </div>
 </nav>
@@ -92,7 +111,7 @@
     <div class="container">
       <div class="section-header">
         <h2 class="gradient-title" style="font-size: 2.5rem; font-weight: 700;" data-key="skillsTitle">Constelación de Habilidades</h2>
-        <p style="color: #B9C3E6; margin-top: 0.5rem;" data-key="skillsSubtitle">Pasa el cursor sobre cada constelación para activar la órbita circular</p>
+        <p style="color: #B9C3E6; margin-top: 0.5rem;" data-key="skillsSubtitle">Explora mis habilidades profesionales</p>
       </div>
       <div class="constellations-wrapper">
         <div class="constellations-grid" id="constellationsGrid"></div>
@@ -145,7 +164,6 @@
   </div>
 </footer>
 
-<!-- Enlace al script externo -->
 <script src="script.js" defer></script>
 </body>
 </html>
